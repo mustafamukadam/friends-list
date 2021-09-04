@@ -1,0 +1,21 @@
+.friend-list .friend-info {
+  margin-left: 10px;
+}
+
+.friend-list .friend-info h2 {
+  margin: 0 0 10px;
+}
+
+.friend-list .friend-info p {
+  font-size: 12px;
+}
+
+.fav {
+  margin-left: auto;
+}
+
+.fav .heart,
+.delete {
+  cursor: pointer;
+  padding: 5px 10px;
+}

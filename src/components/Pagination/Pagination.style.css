@@ -1,0 +1,16 @@
+.pagination span.link {
+  cursor: pointer;
+}
+
+.pagination .btn-pagination {
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+}
+.active {
+  font-weight: bold;
+  color: var(--brand-color);
+  font-size: 18px;
+}
