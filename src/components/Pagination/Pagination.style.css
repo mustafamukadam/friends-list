@@ -1,3 +1,7 @@
+.pagination {
+  min-height: 25px;
+}
+
 .pagination span.link {
   cursor: pointer;
 }

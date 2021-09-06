@@ -37,14 +37,13 @@ const Pagination = ({ offset, list, updateOffset }) => {
             <div className={classNames('btn-pagination', { 'disabled': offset === 0 })} onClick={() => updateOffset(offset - 1)}>
                 <Icon icon={offset === 0 ? 'leftDull' : 'left'} />
             </div>
-            {
-                renderPaginationLinks()
-            }
-            <div className={classNames('btn-pagination', { 'disabled': disableRightPagination })} onClick={() => updateOffset(offset + 1)}>
+            {renderPaginationLinks()}
+            < div className={classNames('btn-pagination', { 'disabled': disableRightPagination })} onClick={() => updateOffset(offset + 1)}>
                 <Icon icon={disableRightPagination ? 'rightDull' : 'right'} />
             </div>
+
         </div>
-    );
+    )
 }
 
 export default Pagination;

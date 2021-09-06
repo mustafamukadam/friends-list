@@ -68,6 +68,7 @@ function Home() {
     if (window.confirm('are you sure you want to delete this friend?')) {
       const updatedData = data.filter((item) => item.id !== id)
       setData(updatedData)
+      setOffSet(0)
     }
   }
 
@@ -92,42 +93,46 @@ function Home() {
   ), [fullName, filteredList, data])
 
   return (
-    <>
-      <h1 className="title underline">Friends List 👬</h1>
-      <div className="container">
-        <header className="form-group">
-          <input type="text"
-            id="addFriend"
-            placeholder="🤪 Add Friend"
-            value={newFriend}
-            onChange={(e) => setNewFriend(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') addNewFriend() }}
-          />
-          {errors.name && <div className="error">{errors.name}</div>}
-          {errors.alphabets && <div className="error">{errors.alphabets}</div>}
-          <div className="btn" onClick={addNewFriend}>Add</div>
-        </header>
-        <header className="form-group">
-          <input type="text" id="filter" placeholder="🔎 Search Friend ..." onChange={filterNames} value={fullName} />
-          <div className="filter">
-            <span className="h3">{friendsCountCaption}</span>
-            <div>
-              <span className="sort">Sort</span>
-              <span onClick={() => { setOffSet(0); setIsSortFavourite(!isSortFavourite) }}><Icon icon={isSortFavourite ? 'heartFillWhite' : 'heartWhite'} /></span>
+    <main id="main">
+      <section className="left center">
+        <h1 className="title underline">Friends List 👬</h1>
+      </section>
+      <section className="right center">
+        <div className="container">
+          <header className="form-group">
+            <input type="text"
+              id="addFriend"
+              placeholder="🤪 Add Friend"
+              value={newFriend}
+              onChange={(e) => setNewFriend(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') addNewFriend() }}
+            />
+            {errors.name && <div className="error">{errors.name}</div>}
+            {errors.alphabets && <div className="error">{errors.alphabets}</div>}
+            <div className="btn" onClick={addNewFriend}>Add</div>
+          </header>
+          <header className="form-group pt-2">
+            <input type="text" id="filter" placeholder="🔎 Search Friend ..." onChange={filterNames} value={fullName} />
+            <div className="filter">
+              <span className="h3">{friendsCountCaption}</span>
+              <div>
+                <span className="sort">Sort</span>
+                <span onClick={() => { setOffSet(0); setIsSortFavourite(!isSortFavourite) }}><Icon icon={isSortFavourite ? 'heartFillWhite' : 'heartWhite'} /></span>
+              </div>
             </div>
-          </div>
-        </header>
+          </header>
 
-        <ul id="result" className="friend-list">
-          {
-            paginatedList.length ? paginatedList.map(friend =>
-              <FriendCard friend={friend} toggleFavourite={toggleFavourite} deleteFriend={deleteFriend} key={friend.id} />
-            ) : <NoMatch />
-          }
-        </ul>
-        <Pagination offset={offset} list={filteredList} updateOffset={updateOffset} />
-      </div>
-    </>
+          <ul id="result" className="friend-list">
+            {
+              paginatedList.length ? paginatedList.map(friend =>
+                <FriendCard friend={friend} toggleFavourite={toggleFavourite} deleteFriend={deleteFriend} key={friend.id} />
+              ) : <NoMatch isNoData={data.length === 0} />
+            }
+          </ul>
+          {filteredList.length ? <Pagination offset={offset} list={filteredList} updateOffset={updateOffset} /> : null}
+        </div>
+      </section>
+    </main>
   );
 }
 
