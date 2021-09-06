@@ -4,6 +4,7 @@ import FriendCard from "../../components/FriendCard/FriendCard";
 import Pagination from "../../components/Pagination/Pagination";
 import { AppContext } from "../../context/AppContext";
 import { useFormValidation } from "../../hooks/validations.hook";
+import NoMatch from "../../components/NoMatch/NoMatch";
 
 function Home() {
   console.log('render')
@@ -86,6 +87,10 @@ function Home() {
     [filteredList, LIMIT, offset]
   );
 
+  const friendsCountCaption = useMemo(() => (
+    fullName ? `Showing ${filteredList.length} of ${data.length} Friends` : `Total Friends: ${data.length}`
+  ), [fullName, filteredList, data])
+
   return (
     <>
       <h1 className="title underline">Friends List 👬</h1>
@@ -104,17 +109,20 @@ function Home() {
         </header>
         <header className="form-group">
           <input type="text" id="filter" placeholder="🔎 Search Friend ..." onChange={filterNames} value={fullName} />
-          <div className="sort">
-            <span>Sort</span>
-            <div onClick={() => { setOffSet(0); setIsSortFavourite(!isSortFavourite) }}><Icon icon={isSortFavourite ? 'heartFillWhite' : 'heartWhite'} /></div>
+          <div className="filter">
+            <span className="h3">{friendsCountCaption}</span>
+            <div>
+              <span className="sort">Sort</span>
+              <span onClick={() => { setOffSet(0); setIsSortFavourite(!isSortFavourite) }}><Icon icon={isSortFavourite ? 'heartFillWhite' : 'heartWhite'} /></span>
+            </div>
           </div>
         </header>
 
         <ul id="result" className="friend-list">
           {
-            paginatedList.map(friend =>
+            paginatedList.length ? paginatedList.map(friend =>
               <FriendCard friend={friend} toggleFavourite={toggleFavourite} deleteFriend={deleteFriend} key={friend.id} />
-            )
+            ) : <NoMatch />
           }
         </ul>
         <Pagination offset={offset} list={filteredList} updateOffset={updateOffset} />

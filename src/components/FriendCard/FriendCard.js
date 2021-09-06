@@ -5,7 +5,7 @@ const FriendCard = ({ friend, toggleFavourite, deleteFriend }) => (
     <li key={friend.id}>
         <img src={friend.imgSrc} alt="test alt" />
         <div className="friend-info">
-            <h2>{friend.name}</h2>
+            <span className="h2 bold">{friend.name}</span>
             <p>is your friend</p>
         </div>
         <div className="fav center" >
